@@ -1,3 +1,9 @@
+// Converte "2026-10-27" em "27/10/2026" (sem usar fusos horários, para não "saltar" de dia)
+function formatarData(iso) {
+  const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return partes ? partes[3] + "/" + partes[2] + "/" + partes[1] : iso || "";
+}
+
 // Funções para falar com o servidor. Usadas por todas as páginas.
 const Api = {
   async pedir(metodo, url, dados) {

@@ -6,12 +6,149 @@
   <title>Ficha do aluno · Caderneta Escolar</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
 </head>
-<body>
+<body data-aluno-id="{{ aluno_id }}">
   <header class="topo">
-    <h1><a href="/">← Caderneta Escolar</a></h1>
+    <h1><a href="/">← Alunos</a></h1>
   </header>
+
   <main class="conteudo">
-    <p class="vazio">A ficha do aluno (com as ocorrências) será construída no Passo 6.</p>
+    <p id="aviso" class="aviso" hidden></p>
+
+    <!-- Dados do aluno -->
+    <section id="bloco-aluno" class="bloco" hidden>
+      <div class="bloco-topo">
+        <h2 id="aluno-nome"></h2>
+        <div class="botoes-linha">
+          <button type="button" id="btn-editar-aluno" class="botao pequeno">Editar</button>
+          <button type="button" id="btn-apagar-aluno" class="botao pequeno perigo">Apagar</button>
+        </div>
+      </div>
+      <dl id="aluno-dados" class="dados"></dl>
+    </section>
+
+    <!-- Ocorrências -->
+    <section id="bloco-ocorrencias" class="bloco" hidden>
+      <div class="bloco-topo">
+        <h2>Ocorrências</h2>
+        <button type="button" id="btn-nova-ocorrencia" class="botao primario pequeno">+ Nova ocorrência</button>
+      </div>
+      <p id="aviso-ocorrencias" class="aviso" hidden></p>
+      <p id="contagem-ocorrencias" class="contagem"></p>
+      <ul id="lista-ocorrencias" class="lista"></ul>
+    </section>
   </main>
+
+  <!-- Janela: editar aluno -->
+  <dialog id="dialogo-aluno">
+    <form id="form-aluno" method="dialog" autocomplete="off">
+      <h2>Editar aluno</h2>
+
+      <label>Nome completo *
+        <input type="text" name="nome" required>
+      </label>
+
+      <div class="linha">
+        <label>Nº de processo
+          <input type="text" name="numero_processo">
+        </label>
+        <label>Data de nascimento
+          <input type="date" name="data_nascimento">
+        </label>
+      </div>
+
+      <div class="linha tres">
+        <label>Género
+          <select name="genero">
+            <option value="">—</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Masculino">Masculino</option>
+          </select>
+        </label>
+        <label>Classe
+          <input type="text" name="classe">
+        </label>
+        <label>Turma
+          <input type="text" name="turma">
+        </label>
+      </div>
+
+      <div class="linha">
+        <label>Encarregado de educação
+          <input type="text" name="encarregado_nome">
+        </label>
+        <label>Telefone do encarregado
+          <input type="tel" name="encarregado_telefone">
+        </label>
+      </div>
+
+      <label>Morada
+        <input type="text" name="morada">
+      </label>
+
+      <label>Observações
+        <textarea name="observacoes" rows="3"></textarea>
+      </label>
+
+      <p id="erro-aluno" class="erro" role="alert" hidden></p>
+
+      <div class="acoes">
+        <button type="button" id="cancelar-aluno" class="botao">Cancelar</button>
+        <button type="submit" id="guardar-aluno" class="botao primario">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Janela: registar / editar ocorrência -->
+  <dialog id="dialogo-ocorrencia">
+    <form id="form-ocorrencia" method="dialog" autocomplete="off">
+      <h2 id="titulo-ocorrencia">Nova ocorrência</h2>
+
+      <div class="linha">
+        <label>Data *
+          <input type="date" name="data" required>
+        </label>
+        <label>Gravidade
+          <select name="gravidade">
+            <option value="leve">Leve</option>
+            <option value="media">Média</option>
+            <option value="grave">Grave</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Tipo de ocorrência *
+        <input type="text" name="tipo" list="tipos" required placeholder="Escolha ou escreva">
+        <datalist id="tipos">
+          <option value="Atraso">
+          <option value="Falta">
+          <option value="Indisciplina">
+          <option value="Agressão">
+          <option value="Falta de material">
+          <option value="Uso de telemóvel">
+          <option value="Elogio">
+          <option value="Outro">
+        </datalist>
+      </label>
+
+      <label>Descrição *
+        <textarea name="descricao" rows="4" required></textarea>
+      </label>
+
+      <label>Medida tomada
+        <textarea name="medida_tomada" rows="2"></textarea>
+      </label>
+
+      <p id="erro-ocorrencia" class="erro" role="alert" hidden></p>
+
+      <div class="acoes">
+        <button type="button" id="cancelar-ocorrencia" class="botao">Cancelar</button>
+        <button type="submit" id="guardar-ocorrencia" class="botao primario">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/ocorrencias.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/ficha.js') }}"></script>
 </body>
 </html>
