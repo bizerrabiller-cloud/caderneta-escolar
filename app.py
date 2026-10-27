@@ -3,6 +3,7 @@ import socket
 from flask import Flask, jsonify, render_template
 
 import db
+from routes import alunos, ocorrencias
 
 app = Flask(__name__)
 
@@ -23,7 +24,8 @@ def saude():
     return jsonify(estado="ok", mensagem="Caderneta escolar a funcionar")
 
 
-# As rotas de alunos e ocorrências serão ligadas aqui no Passo 4
+app.register_blueprint(alunos.bp)
+app.register_blueprint(ocorrencias.bp)
 
 
 def endereco_na_rede():
