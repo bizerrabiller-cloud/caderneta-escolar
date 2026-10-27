@@ -18,6 +18,11 @@ def inicio():
     return render_template("index.html")
 
 
+@app.route("/aluno/<int:aluno_id>")
+def ficha_aluno(aluno_id):
+    return render_template("aluno.html", aluno_id=aluno_id)
+
+
 # Rota de teste: confirma que o servidor está a funcionar
 @app.route("/api/saude")
 def saude():

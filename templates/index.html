@@ -4,9 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Caderneta Escolar</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
 </head>
 <body>
-  <h1>Caderneta Escolar</h1>
-  <p>O servidor está a funcionar.</p>
+  <header class="topo">
+    <h1>Caderneta Escolar</h1>
+    <button type="button" id="btn-novo" class="botao primario">+ Novo aluno</button>
+  </header>
+
+  <main class="conteudo">
+    <label class="pesquisa">
+      <span class="so-leitores">Pesquisar alunos</span>
+      <input type="search" id="pesquisa" placeholder="Pesquisar aluno, processo ou encarregado" autocomplete="off">
+    </label>
+
+    <p id="contagem" class="contagem" aria-live="polite"></p>
+    <p id="aviso" class="aviso" hidden></p>
+
+    <ul id="lista" class="lista"></ul>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="formulario" method="dialog" autocomplete="off">
+      <h2>Novo aluno</h2>
+
+      <label>Nome completo *
+        <input type="text" name="nome" required>
+      </label>
+
+      <div class="linha">
+        <label>Nº de processo
+          <input type="text" name="numero_processo">
+        </label>
+        <label>Data de nascimento
+          <input type="date" name="data_nascimento">
+        </label>
+      </div>
+
+      <div class="linha tres">
+        <label>Género
+          <select name="genero">
+            <option value="">—</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Masculino">Masculino</option>
+          </select>
+        </label>
+        <label>Classe
+          <input type="text" name="classe" placeholder="ex.: 7ª">
+        </label>
+        <label>Turma
+          <input type="text" name="turma" placeholder="ex.: A">
+        </label>
+      </div>
+
+      <div class="linha">
+        <label>Encarregado de educação
+          <input type="text" name="encarregado_nome">
+        </label>
+        <label>Telefone do encarregado
+          <input type="tel" name="encarregado_telefone">
+        </label>
+      </div>
+
+      <label>Morada
+        <input type="text" name="morada">
+      </label>
+
+      <label>Observações
+        <textarea name="observacoes" rows="3"></textarea>
+      </label>
+
+      <p id="erro-form" class="erro" role="alert" hidden></p>
+
+      <div class="acoes">
+        <button type="button" id="btn-cancelar" class="botao">Cancelar</button>
+        <button type="submit" id="btn-guardar" class="botao primario">Guardar aluno</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/alunos.js') }}"></script>
 </body>
 </html>
